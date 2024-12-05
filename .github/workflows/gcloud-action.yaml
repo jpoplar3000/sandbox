@@ -28,7 +28,8 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
           # impersonate_service_account: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-
+          create_credentials_file: true
+          export_environment_variables: true
 
       - name: Impersonate Service Account and Test GCP Command
         run: |
