@@ -36,15 +36,13 @@ jobs:
         run: |
           gcloud config set auth/impersonate_service_account ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
           gcloud projects list
-          # gcloud auth activate-service-account --key-file=${{ secrets.GCP_CREDENTIALS_FILE }}
-          # gcloud auth print-access-token --impersonate-service-account=${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
 
-      - name: Run GCP Commands
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-        run: |
-          gcloud config set project $PROJECT_ID
-          gcloud auth list
-          gcloud iam service-accounts list --project=$PROJECT_ID
+      # - name: Run GCP Commands
+      #   env:
+      #     PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      #   run: |
+      #     gcloud config set project $PROJECT_ID
+      #     gcloud auth list
+      #     gcloud iam service-accounts list --project=$PROJECT_ID
 
-          # Add more commands as needed
+      #     # Add more commands as needed
