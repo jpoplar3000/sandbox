@@ -1,31 +1,23 @@
-name: Run Cloud CLI Commands
-
-on:
-  push:
-    branches:
-      - main
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  run-cli:
+  auth:
     runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Configure Google Cloud Auth
+      - name: Authenticate with Workload Identity and Impersonate Service Account
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          impersonate_service_account: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
 
-      - name: Run GCP Commands
-        env:
-          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Test GCP Command
         run: |
-          gcloud config set project $PROJECT_ID
           gcloud auth list
-          # Add more commands as needed
