@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+
 permissions:
   id-token: write
   contents: read
@@ -16,33 +17,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # - name: Configure Google Cloud Auth
-      #   uses: google-github-actions/auth@v1
-      #   with:
-      #     workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-      #     service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-
       - name: Authenticate with Workload Identity and Impersonate Service Account
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-          access_token_subject: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-          # impersonate_service_account: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-          # create_credentials_file: true
-          # export_environment_variables: true
+          workload_identity_provider: https://iam.googleapis.com/projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2
+          service_account: my-service-account@excellent-grin-302222.iam.gserviceaccount.com
 
-      - name: Impersonate Service Account and Test GCP Command
+      - name: Test GCP Command (Impersonating Service Account)
         run: |
-          gcloud config set auth/impersonate_service_account ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
+          gcloud auth print-access-token --impersonate-service-account=gha-runner@excellent-grin-302222.iam.gserviceaccount.com
           gcloud projects list
-
-      # - name: Run GCP Commands
-      #   env:
-      #     PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-      #   run: |
-      #     gcloud config set project $PROJECT_ID
-      #     gcloud auth list
-      #     gcloud iam service-accounts list --project=$PROJECT_ID
-
-      #     # Add more commands as needed
