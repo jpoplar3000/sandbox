@@ -23,7 +23,6 @@ jobs:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-
       - name: Run GCP Commands
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
