@@ -20,7 +20,7 @@ jobs:
       - name: Configure Google Cloud Auth
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
 
       # - name: Authenticate with Workload Identity and Impersonate Service Account
