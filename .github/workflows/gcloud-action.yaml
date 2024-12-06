@@ -20,9 +20,9 @@ jobs:
       - name: Configure Google Cloud Auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2
-          service_account: my-service-account@excellent-grin-302222.iam.gserviceaccount.com
-          access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
 
       - name: Run GCP Commands
         env:
