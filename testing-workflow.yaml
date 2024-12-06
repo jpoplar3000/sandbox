@@ -46,3 +46,37 @@ jobs:
       #     gcloud iam service-accounts list --project=$PROJECT_ID
 
       #     # Add more commands as needed
+
+
+
+
+name: Run Cloud CLI Commands
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  run-cli:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Authenticate with Workload Identity and Impersonate Service Account
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: "https://iam.googleapis.com/projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2"
+          service_account: "my-service-account@excellent-grin-302222.iam.gserviceaccount.com"
+          # access_token_subject: "https://iam.googleapis.com/projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2"
+
+      - name: Test GCP Command (Impersonating Service Account)
+        run: |
+          # gcloud auth print-access-token --impersonate-service-account=gha-runner@excellent-grin-302222.iam.gserviceaccount.com
+          gcloud projects list
