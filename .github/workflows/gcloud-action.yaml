@@ -21,22 +21,7 @@ jobs:
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-
-      # - name: Authenticate with Workload Identity and Impersonate Service Account
-      #   uses: google-github-actions/auth@v2
-      #   with:
-      #     workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-      #     service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-      #     access_token_subject: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-      #     # impersonate_service_account: ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-      #     # create_credentials_file: true
-      #     # export_environment_variables: true
-
-      # - name: Impersonate Service Account and Test GCP Command
-      #   run: |
-      #     gcloud config set auth/impersonate_service_account ${{ secrets.TARGET_SERVICE_ACCOUNT_EMAIL }}
-      #     gcloud projects list
+          service_account: gha-runner@excellent-grin-302222.iam.gserviceaccount.com
 
       - name: Run GCP Commands
         env:
@@ -46,4 +31,4 @@ jobs:
           gcloud auth list
           gcloud iam service-accounts list --project=$PROJECT_ID
 
-      #     # Add more commands as needed
+          # Add more commands as needed
