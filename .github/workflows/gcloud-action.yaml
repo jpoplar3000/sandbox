@@ -22,9 +22,9 @@ jobs:
         with:
           workload_identity_provider: "projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2"
           service_account: "my-service-account@excellent-grin-302222.iam.gserviceaccount.com"
-          audience: "https://iam.googleapis.com/projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2"
+          # access_token_subject: "https://iam.googleapis.com/projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2"
 
       - name: Test GCP Command (Impersonating Service Account)
         run: |
-          gcloud auth print-access-token --impersonate-service-account=gha-runner@excellent-grin-302222.iam.gserviceaccount.com
+          # gcloud auth print-access-token --impersonate-service-account=gha-runner@excellent-grin-302222.iam.gserviceaccount.com
           gcloud projects list
