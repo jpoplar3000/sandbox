@@ -21,7 +21,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: projects/989320585748/locations/global/workloadIdentityPools/github-pool/providers/github-provider2
-          service_account: gha-runner@excellent-grin-302222.iam.gserviceaccount.com
+          service_account: my-service-account@excellent-grin-302222.iam.gserviceaccount.com
           access_token_scopes: https://www.googleapis.com/auth/cloud-platform
 
       - name: Run GCP Commands
