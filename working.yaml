@@ -1,4 +1,3 @@
-
 name: Run Cloud CLI Commands
 
 on:
@@ -22,14 +21,16 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: gha-runner@excellent-grin-302222.iam.gserviceaccount.com
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
-      - name: Run GCP Commands with Impersonation
+      - name: Run GCP Commands
         env:
           PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-          TARGET_SERVICE_ACCOUNT: ${{ secrets.GCP_TARGET_SERVICE_ACCOUNT }}
         run: |
           gcloud config set project $PROJECT_ID
-          gcloud config set auth/impersonate_service_account $TARGET_SERVICE_ACCOUNT
           gcloud auth list
           gcloud iam service-accounts list --project=$PROJECT_ID
+
+          # Add more GCP commands here as needed
+
+
